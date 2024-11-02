@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TP1_salmen.Models.Employee>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Employés</title>
+</head>
+<body>
+
+    <h2>Index</h2>
+ 
+    <a asp-action="Create" class="btn btn-success mb-3">Create new</a>
+
+    <form class="form-inline mb-3" asp-action="Search">
+        <input type="search" name="term" class="form-control mr-sm-2" placeholder="Search">
+        <button type="submit" class="btn btn-outline-success">Search</button>
+    </form>
+
+    <table class="table table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Département</th>
+                <th>Salaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Department</td>
+                    <td>@employee.Salary</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-primary btn-sm">Modifier</a>
+                        <a asp-action="Details" asp-route-id="@employee.Id" class="btn btn-info btn-sm">Détails</a>
+                        <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <p>Nombre d'employés : @ViewData["EmployeesCount"]</p>
+        <p>Salaire Moyen : @ViewData["SalaryAverage"]</p>
+        <p>Salaire Max : @ViewData["MaxSalary"]</p>
+        <p>Nombre d'employés du département RH : @ViewData["HREmployeesCount"]</p>
+        <a asp-controller="Employee" asp-action="Index" class="text-primary">Afficher tous les employés</a>
+    </div>
+
+
+</body>
+</html>
